@@ -1,5 +1,6 @@
 module.exports = {
   rootDir: '../../',
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/$1',
