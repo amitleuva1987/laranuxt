@@ -2,13 +2,38 @@
   <section>
     <h2 class="text-xl mb-3 border-b-2 border-yellow-900 pb-3">Skills</h2>
     <ul class="mt-5 mb-3 border-b-2 border-yellow-900 pb-3">
-      <li v-for="c_skill in skills" :key="c_skill.id" class="bg-white px-3 py-2 flex justify-between mb-2">
-        <span>{{ c_skill.name }}</span>
-        <span><button type="button" class="text-blue-700" @click.once="edit(c_skill)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(c_skill.id)">Delete</button></span>
+      <li
+        v-for="c_skill in skills"
+        :key="c_skill.id"
+        class="bg-white px-3 py-2 flex justify-between mb-2"
+      >
+        <span>
+          {{ c_skill.name }}
+        </span>
+        <span>
+          <button
+            type="button"
+            class="text-blue-700"
+            @click.once="edit(c_skill)"
+          >Edit
+          </button>
+          |
+          <button
+            type="button"
+            class="text-red-500"
+            @click.once="danger(c_skill.id)"
+          >
+            Delete
+          </button>
+        </span>
       </li>
 
       <div v-if="!enable_add" class="w-full flex justify-center mt-5">
-        <button class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded" type="button" @click="enable_add = !enable_add">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded"
+          type="button"
+          @click="enable_add = !enable_add"
+        >
           ADD NEW SKILL
         </button>
       </div>

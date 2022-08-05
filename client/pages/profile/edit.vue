@@ -1,6 +1,11 @@
 <template>
   <div class="container mt-5 p-2 lg:p-5 bg-gray-300 mb-5">
-    <NuxtLink to="/profile" class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 mt-2 mb-2 rounded" type="button" @click.once="update_user">
+    <NuxtLink
+      to="/profile"
+      class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 mt-2 mb-2 rounded"
+      type="button"
+      @click.once="update_user"
+    >
       BACK TO PROFILE
     </NuxtLink>
 

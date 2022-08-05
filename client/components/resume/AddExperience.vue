@@ -1,7 +1,11 @@
 <template>
   <section>
     <div v-if="!show_add_experiemce_form" class="w-full flex justify-center mb-3 border-b-2 border-yellow-900 pb-3">
-      <button class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded mt-3" type="button" @click="show_add_experiemce_form = !show_add_experiemce_form">
+      <button
+        class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded mt-3"
+        type="button"
+        @click="show_add_experiemce_form = !show_add_experiemce_form"
+      >
         ADD EXPERIENCE
       </button>
     </div>
@@ -12,14 +16,25 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-company-name">
             Company Name
           </label>
-          <input id="grid-company-name" v-model="experience.company_name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="ABC Pvt ltd">
-          <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+          <input
+            id="grid-company-name"
+            v-model="experience.company_name"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="text"
+            placeholder="ABC Pvt ltd"
+          >
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-job-title">
             Job Title
           </label>
-          <input id="grid-job-title" v-model="experience.job_title" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Full stack developer">
+          <input
+            id="grid-job-title"
+            v-model="experience.job_title"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="text"
+            placeholder="Full stack developer"
+          >
         </div>
       </div>
 
@@ -28,14 +43,23 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-github">
             From Date
           </label>
-          <input id="grid-from-date" v-model="experience.from_date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="date">
-          <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+          <input
+            id="grid-from-date"
+            v-model="experience.from_date"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="date"
+          >
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-linkedin">
             To Date
           </label>
-          <input id="grid-to-date" v-model="experience.to_date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="date">
+          <input
+            id="grid-to-date"
+            v-model="experience.to_date"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="date"
+          >
         </div>
       </div>
 
@@ -44,15 +68,28 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-mobile-no">
             Responsiblities
           </label>
-          <textarea id="grid-responsibility-no" v-model="experience.responsibilities" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Responsibilities" />
+          <textarea
+            id="grid-responsibility-no"
+            v-model="experience.responsibilities"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            placeholder="Responsibilities"
+          />
         </div>
       </div>
 
       <div class="w-full flex justify-center">
-        <button class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded" type="button" @click.once="save_experience">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded"
+          type="button"
+          @click.once="save_experience"
+        >
           SAVE
         </button>
-        <button class="ml-2 bg-white text-md py-2 px-3 rounded" type="button" @click.once="show_add_experiemce_form = !show_add_experiemce_form">
+        <button
+          class="ml-2 bg-white text-md py-2 px-3 rounded"
+          type="button"
+          @click.once="show_add_experiemce_form = !show_add_experiemce_form"
+        >
           CANCEL
         </button>
       </div>

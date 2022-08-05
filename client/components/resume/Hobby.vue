@@ -2,7 +2,11 @@
   <section>
     <h2 class="text-xl mb-3 border-b-2 border-yellow-900 pb-3">Hobby</h2>
     <ul>
-      <li v-for="s_hobby in hobbies" :key="s_hobby.id" class="bg-white px-3 py-2 flex justify-between mb-2">
+      <li
+        v-for="s_hobby in hobbies"
+        :key="s_hobby.id"
+        class="bg-white px-3 py-2 flex justify-between mb-2"
+      >
         <span>{{ s_hobby.hobby_name }}</span>
         <span><button type="button" class="text-blue-500" @click.once="edit(s_hobby)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(s_hobby.id)">Delete</button></span>
       </li>

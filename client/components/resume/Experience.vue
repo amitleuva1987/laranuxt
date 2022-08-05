@@ -2,7 +2,11 @@
   <section>
     <h2 class="text-xl mb-3 border-b-2 border-yellow-900 pb-3">Experience</h2>
     <ul>
-      <li v-for="s_experience in experiences" :key="s_experience.id" class="bg-white px-3 py-2 flex justify-between mb-2">
+      <li
+        v-for="s_experience in experiences"
+        :key="s_experience.id"
+        class="bg-white px-3 py-2 flex justify-between mb-2"
+      >
         <span>{{ s_experience.company_name }} | {{ s_experience.job_title }} ({{ s_experience.from_date }} - {{ s_experience.to_date }})</span>
         <span><button type="button" class="text-blue-500" @click.once="edit(s_experience)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(s_experience.id)">Delete</button></span>
       </li>

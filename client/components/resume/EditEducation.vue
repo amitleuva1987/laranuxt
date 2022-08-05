@@ -6,13 +6,25 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-degree-name">
             Degree Name
           </label>
-          <input id="grid-company-name" v-model="local_education.degree_name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="ABC Pvt ltd">
+          <input
+            id="grid-company-name"
+            v-model="local_education.degree_name"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="text"
+            placeholder="ABC Pvt ltd"
+          >
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-university-name">
             University Name
           </label>
-          <input id="grid-university-name" v-model="local_education.university_name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Full stack developer">
+          <input
+            id="grid-university-name"
+            v-model="local_education.university_name"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="text"
+            placeholder="Full stack developer"
+          >
         </div>
       </div>
 
@@ -21,21 +33,39 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-github">
             From Date
           </label>
-          <input id="grid-from-date" v-model="local_education.from_date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="date">
+          <input
+            id="grid-from-date"
+            v-model="local_education.from_date"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="date"
+          >
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-linkedin">
             To Date
           </label>
-          <input id="grid-to-date" v-model="local_education.to_date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="date">
+          <input
+            id="grid-to-date"
+            v-model="local_education.to_date"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="date"
+          >
         </div>
       </div>
 
       <div class="w-full flex justify-center">
-        <button class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded" type="button" @click.once="save_education">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded"
+          type="button"
+          @click.once="save_education"
+        >
           SAVE
         </button>
-        <button class="ml-2 bg-white text-md py-2 px-3 rounded" type="button" @click.once="show_add_experiemce_form = !show_add_experiemce_form">
+        <button
+          class="ml-2 bg-white text-md py-2 px-3 rounded"
+          type="button"
+          @click.once="show_add_experiemce_form = !show_add_experiemce_form"
+        >
           CANCEL
         </button>
       </div>

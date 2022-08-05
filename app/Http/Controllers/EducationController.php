@@ -74,7 +74,7 @@ class EducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)     
     {
         $education = Education::find($id);
         $education->degree_name = $request->degree_name;

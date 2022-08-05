@@ -2,7 +2,11 @@
   <section>
     <h2 class="text-xl mb-3 border-b-2 border-yellow-900 pb-3">Education</h2>
     <ul>
-      <li v-for="s_education in educations" :key="s_education.id" class="bg-white px-3 py-2 flex justify-between mb-2">
+      <li
+        v-for="s_education in educations"
+        :key="s_education.id"
+        class="bg-white px-3 py-2 flex justify-between mb-2"
+      >
         <span>{{ s_education.degree_name }} | {{ s_education.university_name }} ({{ s_education.from_date }} - {{ s_education.to_date }})</span>
         <span><button type="button" class="text-blue-500" @click.once="edit(s_education)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(s_education.id)">Delete</button></span>
       </li>
