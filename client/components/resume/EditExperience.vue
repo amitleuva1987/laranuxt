@@ -6,14 +6,14 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-company-name">
             Company Name
           </label>
-          <input id="grid-company-name" v-model="experience.company_name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="ABC Pvt ltd">
+          <input id="grid-company-name" v-model="local_experience.company_name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" placeholder="ABC Pvt ltd">
           <p class="text-red-500 text-xs italic">Please fill out this field.</p>
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-job-title">
             Job Title
           </label>
-          <input id="grid-job-title" v-model="experience.job_title" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Full stack developer">
+          <input id="grid-job-title" v-model="local_experience.job_title" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Full stack developer">
         </div>
       </div>
 
@@ -22,14 +22,14 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-github">
             From Date
           </label>
-          <input id="grid-from-date" v-model="experience.from_date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="date">
+          <input id="grid-from-date" v-model="local_experience.from_date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="date">
           <p class="text-red-500 text-xs italic">Please fill out this field.</p>
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-linkedin">
             To Date
           </label>
-          <input id="grid-to-date" v-model="experience.to_date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="date">
+          <input id="grid-to-date" v-model="local_experience.to_date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="date">
         </div>
       </div>
 
@@ -38,7 +38,7 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-mobile-no">
             Responsiblities
           </label>
-          <textarea id="grid-responsibility-no" v-model="experience.responsibilities" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Responsibilities" />
+          <textarea id="grid-responsibility-no" v-model="local_experience.responsibilities" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Responsibilities" />
         </div>
       </div>
 
@@ -65,26 +65,34 @@ export default Vue.extend({
       type: Object as () => Experience,
     },
   },
-
+  data () {
+    const local_experience = {} as Experience
+    return {
+      local_experience,
+    }
+  },
+  mounted () {
+    this.local_experience = this.experience
+  },
   methods: {
     async save_experience ():Promise<void> {
       const data = {
-        company_name: this.experience.company_name,
-        job_title: this.experience.job_title,
-        from_date: this.experience.from_date,
-        to_date: this.experience.to_date,
-        responsibilities: this.experience.responsibilities,
+        company_name: this.local_experience.company_name,
+        job_title: this.local_experience.job_title,
+        from_date: this.local_experience.from_date,
+        to_date: this.local_experience.to_date,
+        responsibilities: this.local_experience.responsibilities,
       }
 
-      const url = 'experiences/' + this.experience.id
-      await this.$axios.put(url, data).then((response) => {
+      const url = 'experiences/' + this.local_experience.id
+      await this.$axios.put(url, data).then(() => {
         this.$toast.show({
           type: 'success',
           title: 'Success',
           message: 'Experience Update Successfully',
         })
         this.$emit('refresh_experience')
-      }).catch((error) => {
+      }).catch(() => {
         this.$toast.show({
           type: 'danger',
           title: 'Error',

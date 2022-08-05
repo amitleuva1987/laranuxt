@@ -40,7 +40,7 @@ export default Vue.extend({
         hobby_name: this.hobby.hobby_name,
       }
 
-      await this.$axios.post('hobbies', data).then((response) => {
+      await this.$axios.post('hobbies', data).then(() => {
         this.show_add_hobby_form = !this.show_add_hobby_form
         this.$toast.show({
           type: 'success',
@@ -48,7 +48,7 @@ export default Vue.extend({
           message: 'Hobby Added Successfully',
         })
         this.$emit('refresh_hobby')
-      }).catch((error) => {
+      }).catch(() => {
         this.$toast.show({
           type: 'danger',
           title: 'Error',

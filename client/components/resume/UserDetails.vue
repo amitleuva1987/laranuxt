@@ -103,14 +103,14 @@ export default Vue.extend({
         location: this.user.location,
         description: this.user.description,
       }
-      this.$axios.put('users/1', data).then((response) => {
+      await this.$axios.put('users/1', data).then(() => {
         this.$toast.show({
           type: 'success',
           title: 'Success',
           message: 'Profile Updated Successfully',
         })
         this.get_user()
-      }).catch((error) => {
+      }).catch(() => {
         this.$toast.show({
           type: 'danger',
           title: 'Error',

@@ -84,7 +84,7 @@ export default Vue.extend({
         responsibilities: this.experience.responsibilities,
       }
       console.log(data)
-      await this.$axios.post('experiences', data).then((response) => {
+      await this.$axios.post('experiences', data).then(() => {
         this.show_add_experiemce_form = !this.show_add_experiemce_form
         this.$toast.show({
           type: 'success',
@@ -92,7 +92,7 @@ export default Vue.extend({
           message: 'Experience Added Successfully',
         })
         this.$emit('refresh_experience')
-      }).catch((error) => {
+      }).catch(() => {
         this.$toast.show({
           type: 'danger',
           title: 'Error',

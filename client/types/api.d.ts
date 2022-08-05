@@ -19,6 +19,7 @@ export interface MetApiResponse {
 }
 
 export interface User {
+  id:number
   name: string
   email: string
   job_title:string
@@ -30,10 +31,12 @@ export interface User {
 }
 
 export interface Skill {
+  id:number
   name: string
 }
 
 export interface Education {
+  id:number
   degree_name: string
   university_name:string
   from_date:Date
@@ -41,14 +44,17 @@ export interface Education {
 }
 
 export interface Language {
+  id:number
   language_name:string
 }
 
 export interface Hobby {
+  id:number
   hobby_name:string
 }
 
 export interface Experience {
+  id:number
   company_name:string
   job_title:string
   from_date:Date

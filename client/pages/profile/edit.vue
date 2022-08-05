@@ -30,15 +30,7 @@ import Hobby from '@/components/resume/Hobby.vue'
 export default Vue.extend({
   components: { UserDetails, ListSkills, Experience, Education, Language, Hobby },
   data () {
-    const user:User = {
-      name: '',
-      email: '',
-      job_title: '',
-      mobile_no: '',
-      github_profile: '',
-      linkedin_profile: '',
-      location: '',
-    }
+    const user = {} as User
     return {
       user,
     }

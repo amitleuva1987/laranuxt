@@ -40,7 +40,7 @@ export default Vue.extend({
         language_name: this.language.language_name,
       }
 
-      await this.$axios.post('languages', data).then((response) => {
+      await this.$axios.post('languages', data).then(() => {
         this.show_add_language_form = !this.show_add_language_form
         this.$toast.show({
           type: 'success',
@@ -48,7 +48,7 @@ export default Vue.extend({
           message: 'Language Added Successfully',
         })
         this.$emit('refresh_language')
-      }).catch((error) => {
+      }).catch(() => {
         this.$toast.show({
           type: 'danger',
           title: 'Error',

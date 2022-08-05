@@ -2,9 +2,9 @@
   <section>
     <h2 class="text-xl mb-3 border-b-2 border-yellow-900 pb-3">Hobby</h2>
     <ul>
-      <li v-for="hobby in hobbies" :key="hobby.id" class="bg-white px-3 py-2 flex justify-between mb-2">
-        <span>{{ hobby.hobby_name }}</span>
-        <span><button type="button" class="text-blue-500" @click.once="edit(hobby)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(hobby.id)">Delete</button></span>
+      <li v-for="s_hobby in hobbies" :key="s_hobby.id" class="bg-white px-3 py-2 flex justify-between mb-2">
+        <span>{{ s_hobby.hobby_name }}</span>
+        <span><button type="button" class="text-blue-500" @click.once="edit(s_hobby)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(s_hobby.id)">Delete</button></span>
       </li>
     </ul>
     <add-hobby @refresh_hobby="get_hobbies()" />
@@ -65,14 +65,14 @@ export default Vue.extend({
 
     async delete_hobby (id:number) {
       const url = 'hobbies/' + id
-      await this.$axios.delete(url).then((response) => {
+      await this.$axios.delete(url).then(() => {
         this.get_hobbies()
         this.$toast.show({
           type: 'success',
           title: 'Success',
           message: 'Hobby Deleted Successfully',
         })
-      }).catch((error) => {
+      }).catch(() => {
         this.$toast.show({
           type: 'danger',
           title: 'Error',

@@ -72,7 +72,7 @@ export default Vue.extend({
         to_date: this.education.to_date,
       }
       console.log(data)
-      await this.$axios.post('educations', data).then((response) => {
+      await this.$axios.post('educations', data).then(() => {
         this.show_add_educatoin_form = !this.show_add_educatoin_form
         this.$toast.show({
           type: 'success',
@@ -80,7 +80,7 @@ export default Vue.extend({
           message: 'Education Added Successfully',
         })
         this.$emit('refresh_education')
-      }).catch((error) => {
+      }).catch(() => {
         this.$toast.show({
           type: 'danger',
           title: 'Error',

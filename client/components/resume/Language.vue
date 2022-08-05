@@ -2,9 +2,9 @@
   <section>
     <h2 class="text-xl mb-3 border-b-2 border-yellow-900 pb-3">Language</h2>
     <ul>
-      <li v-for="language in languages" :key="language.id" class="bg-white px-3 py-2 flex justify-between mb-2">
-        <span>{{ language.language_name }}</span>
-        <span><button type="button" class="text-blue-500" @click.once="edit(language)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(language.id)">Delete</button></span>
+      <li v-for="lang in languages" :key="lang.id" class="bg-white px-3 py-2 flex justify-between mb-2">
+        <span>{{ lang.language_name }}</span>
+        <span><button type="button" class="text-blue-500" @click.once="edit(lang)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(lang.id)">Delete</button></span>
       </li>
     </ul>
     <add-language @refresh_language="get_languages()" />
@@ -65,14 +65,14 @@ export default Vue.extend({
 
     async delete_language (id:number) {
       const url = 'languages/' + id
-      await this.$axios.delete(url).then((response) => {
+      await this.$axios.delete(url).then(() => {
         this.get_languages()
         this.$toast.show({
           type: 'success',
           title: 'Success',
           message: 'Language Deleted Successfully',
         })
-      }).catch((error) => {
+      }).catch(() => {
         this.$toast.show({
           type: 'danger',
           title: 'Error',
