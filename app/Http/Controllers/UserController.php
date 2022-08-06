@@ -69,7 +69,20 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this
+            ->option('name', 'required|string|max:50')
+            ->option('job_title', 'required|string|max:20')
+            ->option('email', 'required|email')
+            ->option('mobile_no', 'required|string|max:14')
+            ->option('location', 'required|string')
+            ->verify();
+
         $user->name = $request->name;
+        $user->mobile_no = $request->mobile_no;
+        $user->job_title = $request->job_title;
+        $user->github_profile = $request->github_profile;
+        $user->linkedin_profile = $request->linkedin_profile;
+        $user->location = $request->location;
         $user->email = $request->email;
 
         $user->save();

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <form class="w-full border-b-2 border-yellow-900 pb-3 mb-3 mt-5">
+    <form class="w-full border-b-2 border-yellow-900 pb-3 mb-3 mt-5" @submit.prevent="save_language">
       <div class="flex items-center border-b border-teal-500 py-2">
         <input
           v-model="local_language.language_name"
@@ -8,11 +8,11 @@
           type="text"
           placeholder="Language Name"
           aria-label="Full name"
+          required="required"
         >
         <button
           class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:text-md border-4 text-white py-2 px-3 rounded"
-          type="button"
-          @click.once="save_language"
+          type="submit"
         >
           SAVE
         </button>

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2 class="text-xl mb-3 border-b-2 border-yellow-900 pb-3">Language</h2>
+    <h2 class="text-xl text-blue-700 mb-3 border-b-2 border-gray-200 pb-3">Language</h2>
     <ul>
       <li
         v-for="lang in languages"

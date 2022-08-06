@@ -1,7 +1,7 @@
 <template>
   <section>
-    <h2 class="text-xl mb-3 border-b-2 border-yellow-900 pb-3">Skills</h2>
-    <ul class="mt-5 mb-3 border-b-2 border-yellow-900 pb-3">
+    <h2 class="text-xl text-blue-700 mb-3 border-b-2 border-gray-200 pb-3">Skills</h2>
+    <ul class="mt-5 mb-3 border-b-2 border-gray-200 pb-3">
       <li
         v-for="c_skill in skills"
         :key="c_skill.id"
@@ -123,6 +123,7 @@ export default Vue.extend({
 
     async refresh_skills ():Promise<void> {
       this.skills = (await this.$axios.get('skills')).data.data as Skill[]
+      this.enable_add = !this.enable_add
     },
     async refresh_edit ():Promise<void> {
       this.skills = (await this.$axios.get('skills')).data.data as Skill[]

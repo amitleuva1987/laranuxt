@@ -1,12 +1,12 @@
 <template>
   <section>
-    <div v-if="!show_add_language_form" class="w-full flex justify-center mb-3 border-b-2 border-yellow-900 pb-3">
+    <div v-if="!show_add_language_form" class="w-full flex justify-center mb-3 border-b-2 border-gray-200 pb-3">
       <button class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded mt-3" type="button" @click="show_add_language_form = !show_add_language_form">
         ADD LANGUAGE
       </button>
     </div>
 
-    <form v-if="show_add_language_form" class="w-full border-b-2 border-yellow-900 pb-3 mb-3">
+    <form v-if="show_add_language_form" class="w-full border-b-2 border-gray-200 pb-3 mb-3" @submit.prevent="save_language">
       <div class="flex items-center border-b border-teal-500 py-2">
         <input
           v-model="language.language_name"
@@ -14,11 +14,11 @@
           type="text"
           placeholder="Language Name"
           aria-label="Full name"
+          required="required"
         >
         <button
           class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:text-md border-4 text-white py-2 px-3 rounded"
-          type="button"
-          @click.once="save_language"
+          type="submit"
         >
           SAVE
         </button>

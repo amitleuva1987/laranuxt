@@ -1,13 +1,13 @@
 <template>
   <section>
-    <h2 class="text-xl mb-3 border-b-2 border-yellow-900 pb-3">Experience</h2>
+    <h2 class="text-xl text-blue-700 mb-3 border-b-2 border-gray-200 pb-3">Experience</h2>
     <ul>
       <li
         v-for="s_experience in experiences"
         :key="s_experience.id"
         class="bg-white px-3 py-2 flex justify-between mb-2"
       >
-        <span>{{ s_experience.company_name }} | {{ s_experience.job_title }} ({{ s_experience.from_date }} - {{ s_experience.to_date }})</span>
+        <span>{{ s_experience.company_name }} | {{ s_experience.job_title }} ({{ s_experience.from_date | formatDate }} - {{ s_experience.to_date | formatDate }})</span>
         <span><button type="button" class="text-blue-500" @click.once="edit(s_experience)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(s_experience.id)">Delete</button></span>
       </li>
     </ul>
@@ -24,6 +24,10 @@ import { Experience } from '@/types/api'
 export default Vue.extend({
   name: 'Experience',
   components: { AddExperience, EditExperience },
+  filters: {
+    formatDate: (dateStr: string) =>
+      Intl.DateTimeFormat('us-EN').format(new Date(dateStr)),
+  },
   data () {
     const experiences:Experience[] = []
     const enable_edit:boolean = false

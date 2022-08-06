@@ -10,7 +10,7 @@
           type="button"
           @click.once="update_user"
         >
-          EDIT
+          EDIT RESUME
         </NuxtLink>
       </div>
       <div class="flex w-full md:w-1/2 md:justify-end">
@@ -23,7 +23,7 @@
         </p>
       </div>
     </div>
-    <div class="w-full mt-5 border-b-2 border-yellow-900 pb-5">
+    <div class="w-full mt-5 border-b-2 border-gray-200 pb-5">
       <p>{{ user.description }}</p>
     </div>
     <div class="grid grid-cols-4 gap-5 mt-5">
@@ -32,10 +32,15 @@
         <section v-for="experience in experiences" :key="experience.id">
           <div class="flex mt-5">
             <h3 class="w-1/2 font-bold">{{ experience.job_title }}</h3>
-            <p class="w-1/2 flex justify-end">{{ experience.company_name }} | {{ experience.from_date }} - {{ experience.to_date }}</p>
+            <p
+              class="w-1/2 flex justify-end"
+            >
+              <span class="text-blue-500 pr-2">{{ experience.company_name }} </span> | {{ experience.from_date | formatDate }} - {{ experience.to_date | formatDate }}
+            </p>
           </div>
-          <p class="mt-2">My roles and responsibilities with Tagsen.</p>
-          <p class="mt-2">{{ experience.responsibilities }}</p>
+          <p class="mt-2 text-blue-500">My roles and responsibilities with Tagsen.</p>
+          <p class="mt-2  whitespace-pre-line">{{ experience.responsibilities }}</p>
+
           <!-- <ul class="list-disc list-outside ml-5 mt-2">
               <li>Make coding with Laravel, Vue, React, Sass, designing database</li>
               <li>Meeting with clients and understanding client requirements</li>
@@ -45,7 +50,7 @@
           </ul> -->
         </section>
       </div>
-      <div class="border-l-2 border-yellow-900 pl-5">
+      <div class="border-l-2 border-gray-200 pl-5">
         <h2 class="text-xl text-blue-600 font-semibold">Skills</h2>
         <ul class="mt-2">
           <li
@@ -62,7 +67,7 @@
             v-for="education in educations"
             :key="education.id"
           >
-            {{ education.degree_name }}, {{ education.university_name }}, {{ education.from_date }} - {{ education.to_date }}
+            {{ education.degree_name }}, {{ education.university_name }}, {{ education.from_date | formatDate }} - {{ education.to_date | formatDate }}
           </li>
         </ul>
 
@@ -95,6 +100,10 @@ import Vue from 'vue'
 import { User, Skill, Experience, Education, Hobby, Language } from '@/types/api'
 
 export default Vue.extend({
+  filters: {
+    formatDate: (dateStr: string) =>
+      Intl.DateTimeFormat('us-EN').format(new Date(dateStr)),
+  },
   data () {
     const user = {} as User
     const experiences:Experience[] = []
