@@ -1,15 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\tests\php\Unit;
 
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -17,8 +15,8 @@ class UserTest extends TestCase
      */
     public function test_example()
     {
-        $user = User::factory()->create(1);
-        $response = $this->get('/users/'.$user->id);
+        $response = $this->get('/');
+
         $response->assertStatus(200);
     }
 }

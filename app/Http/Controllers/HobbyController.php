@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Hobby;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,10 @@ class HobbyController extends Controller
      */
     public function store(Request $request)
     {
+        $this
+            ->option('hobby_name', 'required|string|max:50')
+            ->verify();
+
         $hobby = Hobby::create([
             'hobby_name' => $request->hobby_name
         ]);
@@ -47,7 +52,7 @@ class HobbyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Hobby $hobby)
     {
         //
     }
@@ -58,7 +63,7 @@ class HobbyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Hobby $hobby)
     {
         //
     }
@@ -70,9 +75,12 @@ class HobbyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Hobby $hobby)
     {
-        $hobby = Hobby::find($id);
+        $this
+            ->option('hobby_name', 'required|string|max:50')
+            ->verify();
+
         $hobby->hobby_name = $request->hobby_name;
         $hobby->save();
         return $this->render($hobby);
@@ -84,9 +92,8 @@ class HobbyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Hobby $hobby)
     {
-        $hobby = Hobby::find($id);
         $hobby->delete();
         return $this->render($hobby);
     }

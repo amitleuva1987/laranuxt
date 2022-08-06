@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Language;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,10 @@ class LanguageController extends Controller
      */
     public function store(Request $request)
     {
+        $this
+            ->option('language_name', 'required|string|max:50')
+            ->verify();
+
         $language = Language::create([
             'language_name' => $request->language_name
         ]);
@@ -48,7 +53,7 @@ class LanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Language $language)
     {
         //
     }
@@ -59,7 +64,7 @@ class LanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Language $language)
     {
         //
     }
@@ -71,12 +76,15 @@ class LanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Language $language)
     {
-        $language = Language::find($id);
+        $this
+            ->option('language_name', 'required|string|max:50')
+            ->verify();
+
         $language->language_name = $request->language_name;
         $language->save();
-        
+
         return $this->render($language);
     }
 
@@ -86,11 +94,9 @@ class LanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Language $language)
     {
-        $language = Language::find($id);
         $language->delete();
-
         return $this->render($language);
     }
 }

@@ -15,7 +15,7 @@ class SkillController extends Controller
     public function index()
     {
         $skills = Skill::all();
-        return $this->render($skills);        
+        return $this->render($skills);
     }
 
     /**
@@ -36,10 +36,13 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
+        $this
+            ->option('name', 'required|string|max:50')
+            ->verify();
         $skill = Skill::create([
             'name' => $request->name
         ]);
-        return $this->render($skill);        
+        return $this->render($skill);
     }
 
     /**
@@ -48,9 +51,8 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Skill $skill)
     {
-        $skill = Skill::find($id);
         return $this->render($skill);
     }
 
@@ -60,7 +62,7 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Skill $skill)
     {
         //
     }
@@ -72,10 +74,11 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Skill $skill)
     {
-        $skill = Skill::find($id);
-
+        $this
+            ->option('name', 'required|string|max:50')
+            ->verify();
         $skill->name = $request->name;
         $skill->save();
         return $this->render($skill);
@@ -87,11 +90,9 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Skill $skill)
     {
-        $skill = Skill::find($id);
         $skill->delete();
-        
-        return $this->render($skill);        
+        return $this->render($skill);
     }
 }

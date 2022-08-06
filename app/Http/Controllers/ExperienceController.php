@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Experience;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,14 @@ class ExperienceController extends Controller
      */
     public function store(Request $request)
     {
+        $this
+            ->option('company_name', 'required|string|max:50')
+            ->option('job_title', 'required|string|max:20')
+            ->option('from_date', 'required|date|before:today')
+            ->option('to_date', 'required|date|after:from_date')
+            ->option('responsibilities', 'required')
+            ->verify();
+
         $experience = Experience::create([
             'company_name' => $request->company_name,
             'job_title' => $request->job_title,
@@ -52,7 +61,7 @@ class ExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Experience $experience)
     {
         //
     }
@@ -63,7 +72,7 @@ class ExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Experience $experience)
     {
         //
     }
@@ -75,9 +84,16 @@ class ExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Experience $experience)
     {
-        $experience = Experience::find($id);
+        $this
+            ->option('company_name', 'required|string|max:50')
+            ->option('job_title', 'required|string|max:20')
+            ->option('from_date', 'required|date|before:today')
+            ->option('to_date', 'required|date|after:from_date')
+            ->option('responsibilities', 'required')
+            ->verify();
+
         $experience->company_name = $request->company_name;
         $experience->job_title = $request->job_title;
         $experience->from_date = $request->from_date;
@@ -94,11 +110,9 @@ class ExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Experience $experience)
     {
-        $experience = Experience::find($id);
         $experience->delete();
-
         return $this->render($experience);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Education;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,13 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
+        $this
+            ->option('degree_name', 'required|string|max:50')
+            ->option('university_name', 'required|string|max:20')
+            ->option('from_date', 'required|date|before:today')
+            ->option('to_date', 'required|date|after:from_date')
+            ->verify();
+
         $education = Education::create([
             'degree_name' => $request->degree_name,
             'university_name' => $request->university_name,
@@ -51,7 +59,7 @@ class EducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Education $education)
     {
         //
     }
@@ -62,7 +70,7 @@ class EducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Education $education)
     {
         //
     }
@@ -74,9 +82,15 @@ class EducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)     
+    public function update(Request $request, Education $education)
     {
-        $education = Education::find($id);
+        $this
+            ->option('degree_name', 'required|string|max:50')
+            ->option('university_name', 'required|string|max:20')
+            ->option('from_date', 'required|date|before:today')
+            ->option('to_date', 'required|date|after:from_date')
+            ->verify();
+
         $education->degree_name = $request->degree_name;
         $education->university_name = $request->university_name;
         $education->from_date = $request->from_date;
@@ -92,9 +106,8 @@ class EducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Education $education)
     {
-        $education = Education::find($id);
         $education->delete();
 
         return $this->render($education);

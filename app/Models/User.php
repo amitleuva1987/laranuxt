@@ -38,7 +38,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function user_details(){
+    public function user_details()
+    {
         return $this->hasOne(UserDetails::class);
     }
 }
