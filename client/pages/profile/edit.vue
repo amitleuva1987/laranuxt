@@ -40,15 +40,5 @@ export default Vue.extend({
       user,
     }
   },
-  mounted () {
-    this.get_user()
-  },
-  methods: {
-    async get_user ():Promise<void> {
-      this.user = (
-            await this.$axios.get('users/1')
-        ).data.data as User
-    },
-  },
 })
 </script>
