@@ -1,32 +1,32 @@
 <template>
   <section>
-    <form class="w-full border-b-2 border-yellow-900 pb-3 mb-3 mt-5" @submit.prevent="save_education">
+    <form class="w-full border-b-2 border-gray-200 pb-3 mb-3 mt-5" @submit.prevent="save_education">
       <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-degree-name">
             Degree Name
           </label>
-          <input
-            id="grid-company-name"
-            v-model="local_education.degree_name"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          <Textinput
+            id="name"
+            :model-value.sync="local_education.degree_name"
             type="text"
-            placeholder="ABC Pvt ltd"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-university-name">
             University Name
           </label>
-          <input
-            id="grid-university-name"
-            v-model="local_education.university_name"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          <Textinput
+            id="name"
+            :model-value.sync="local_education.university_name"
             type="text"
-            placeholder="University name"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
       </div>
 
@@ -35,25 +35,27 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-github">
             From Date
           </label>
-          <input
-            id="grid-from-date"
-            v-model="local_education.from_date"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          <Textinput
+            id="name"
+            :model-value.sync="local_education.from_date"
             type="date"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-linkedin">
             To Date
           </label>
-          <input
-            id="grid-to-date"
-            v-model="local_education.to_date"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          <Textinput
+            id="name"
+            :model-value.sync="local_education.to_date"
             type="date"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
       </div>
 
@@ -67,7 +69,7 @@
         <button
           class="ml-2 bg-white text-md py-2 px-3 rounded"
           type="button"
-          @click.once="show_add_experiemce_form = !show_add_experiemce_form"
+          @click.once="$emit('close_education')"
         >
           CANCEL
         </button>
@@ -112,7 +114,7 @@ export default Vue.extend({
           title: 'Success',
           message: 'Education Update Successfully',
         })
-        this.$emit('refresh_education')
+        this.$emit('close_education')
       }).catch(() => {
         this.$toast.show({
           type: 'danger',

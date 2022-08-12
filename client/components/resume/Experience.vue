@@ -1,94 +1,81 @@
 <template>
-  <section>
-    <h2 class="text-xl text-blue-700 mb-3 border-b-2 border-gray-200 pb-3">Experience</h2>
-    <ul>
-      <li
-        v-for="s_experience in experiences"
-        :key="s_experience.id"
-        class="bg-white px-3 py-2 flex justify-between mb-2"
-      >
-        <span>{{ s_experience.company_name }} | {{ s_experience.job_title }} ({{ s_experience.from_date | formatDate }} - {{ s_experience.to_date | formatDate }})</span>
-        <span><button type="button" class="text-blue-500" @click.once="edit(s_experience)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(s_experience.id)">Delete</button></span>
-      </li>
-    </ul>
-    <add-experience @refresh_experience="get_experiences()" />
-    <edit-experience v-if="enable_edit" :experience="experience" @refresh_experience="refresh_edit()" />
-  </section>
+  <div>
+    <li
+      v-if="!enable_edit"
+      class="bg-white px-3 py-2 flex justify-between mb-2"
+    >
+      <span>{{ experience.company_name }} | {{ experience.job_title }} ({{ experience.from_date | formatDate }} - {{ experience.to_date | formatDate }})</span>
+      <span>
+        <span
+          type="button"
+          class="text-blue-700 cursor-pointer"
+          @click.once="edit()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          type="button"
+          class="text-red-500 cursor-pointer"
+          @click.once="$emit('deleteExperience',experience.id)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </span>
+    </li>
+    <edit-experience v-if="enable_edit" :experience="experience" @close_experience="enable_edit = !enable_edit" />
+  </div>
 </template>
-
 <script lang="ts">
 import Vue from 'vue'
-import AddExperience from './AddExperience.vue'
 import EditExperience from './EditExperience.vue'
 import { Experience } from '@/types/api'
 export default Vue.extend({
-  name: 'Experience',
-  components: { AddExperience, EditExperience },
+  components: { EditExperience },
   filters: {
     formatDate: (dateStr: string) =>
       Intl.DateTimeFormat('us-EN').format(new Date(dateStr)),
   },
+  props: {
+    experience: {
+      required: true,
+      type: Object as () => Experience,
+    },
+  },
   data () {
-    const experiences:Experience[] = []
     const enable_edit:boolean = false
-    const experience = {} as Experience
     return {
-      experiences,
       enable_edit,
-      experience,
     }
   },
-  mounted () {
-    this.get_experiences()
-  },
   methods: {
-    async refresh_edit ():Promise<void> {
-      this.experiences = (await this.$axios.get('experiences')).data.data as Experience[]
+    edit ():void {
       this.enable_edit = !this.enable_edit
     },
-    edit (experience:Experience):void {
-      this.experience = experience
-      this.enable_edit = !this.enable_edit
-    },
-    async get_experiences (): Promise<void> {
-      this.experiences = (await this.$axios.get('experiences')).data.data as Experience[]
-    },
-    danger (id:number) {
-      this.$modal.show({
-        type: 'danger',
-        title: 'Are you sure?',
-        body: 'once removed, you will not be able to get it back.',
-        secondary: {
-          label: 'Cancel',
-          theme: 'while',
-          action: () => this.$toast.success('You cancelled deletion'),
-        },
-        primary: {
-          label: 'Confirm Delete',
-          theme: 'red',
-          action: () => this.delete_experience(id),
-        },
-      })
-    },
-
-    async delete_experience (id:number) {
-      const url = 'experiences/' + id
-      await this.$axios.delete(url).then(() => {
-        this.get_experiences()
-        this.$toast.show({
-          type: 'success',
-          title: 'Success',
-          message: 'Skill Deleted Successfully',
-        })
-      }).catch(() => {
-        this.$toast.show({
-          type: 'danger',
-          title: 'Error',
-          message: 'Oops, something went wrong',
-        })
-      })
-    },
-
   },
 })
 </script>

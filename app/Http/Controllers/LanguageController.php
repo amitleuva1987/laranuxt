@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LanguageController extends Controller
 {
@@ -14,7 +15,7 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        $languages = Language::all();
+        $languages = Language::where('user_id', Auth::id())->get();
         return $this->render($languages);
     }
 
@@ -41,6 +42,7 @@ class LanguageController extends Controller
             ->verify();
 
         $language = Language::create([
+            'user_id' => Auth::id(),
             'language_name' => $request->language_name
         ]);
 

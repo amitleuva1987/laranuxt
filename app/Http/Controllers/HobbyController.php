@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hobby;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HobbyController extends Controller
 {
@@ -14,7 +15,7 @@ class HobbyController extends Controller
      */
     public function index()
     {
-        $hobbies = Hobby::all();
+        $hobbies = Hobby::where('user_id', Auth::id())->get();
         return $this->render($hobbies);
     }
 
@@ -41,6 +42,7 @@ class HobbyController extends Controller
             ->verify();
 
         $hobby = Hobby::create([
+            'user_id' => Auth::id(),
             'hobby_name' => $request->hobby_name
         ]);
         return $this->render($hobby);

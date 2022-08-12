@@ -3,9 +3,11 @@
 namespace Tests\Php\Unit;
 
 use App\Models\Experience;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class ExperienceTest extends TestCase
@@ -19,14 +21,23 @@ class ExperienceTest extends TestCase
      */
     public function test_can_retrive_all_experience_data()
     {
+        Passport::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
         $response = $this->get('/experiences');
         $response->assertStatus(200);
     }
 
     public function test_can_create_an_experience()
     {
+        $user = Passport::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
         $this->assertDatabaseCount('experiences', 0);
         $data = [
+            'user_id' => $user->id,
             'company_name' => 'ABX Pvt Ltd',
             'job_title' => 'Full Stack Developer',
             'from_date' => Carbon::today()->subYear(8)->subMonth(6)->toDateString(),
@@ -42,7 +53,12 @@ class ExperienceTest extends TestCase
 
     public function test_validation_works_while_adding_experience()
     {
+        $user = Passport::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
         $data = [
+            'user_id' => $user->id,
             'company_name' => 'ABC Pvt Ltd',
             'job_title' => 'Full Stack Developer',
             'from_date' => Carbon::today()->subYear(8)->subMonth(6)->toDateString(),
@@ -55,7 +71,13 @@ class ExperienceTest extends TestCase
 
     public function test_validation_works_while_editing_an_experience()
     {
+        $user = Passport::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
+
         $data = [
+            'user_id' => $user->id,
             'company_name' => 'ABC Pvt Ltd',
             'job_title' => 'Full Stack Developer',
             'from_date' => Carbon::today()->subYear(8)->subMonth(6)->toDateString(),
@@ -65,6 +87,7 @@ class ExperienceTest extends TestCase
 
         $experience = Experience::create($data);
         $new_data = [
+            'user_id' => $user->id,
             'company_name' => 'ABC Pvt Ltd',
             'job_title' => 'Full Stack Developer',
             'from_date' => Carbon::today()->subYear(8)->subMonth(6)->toDateString(),
@@ -78,7 +101,13 @@ class ExperienceTest extends TestCase
 
     public function test_can_update_an_experience()
     {
+        $user = Passport::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
+
         $data = [
+            'user_id' => $user->id,
             'company_name' => 'ABC Pvt Ltd',
             'job_title' => 'Full Stack Developer',
             'from_date' => Carbon::today()->subYear(8)->subMonth(6)->toDateString(),
@@ -89,6 +118,7 @@ class ExperienceTest extends TestCase
         $experience = Experience::create($data);
         $this->assertDatabaseCount('experiences', 1);
         $new_data = [
+            'user_id' => $user->id,
             'company_name' => 'ABC Pvt Ltd',
             'job_title' => 'Full Stack Developer',
             'from_date' => Carbon::today()->subYear(8)->subMonth(6)->toDateString(),
@@ -103,13 +133,22 @@ class ExperienceTest extends TestCase
 
     public function test_can_not_delete_a_non_existed_experience()
     {
+        Passport::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
         $response = $this->delete('experiences/2');
         $response->assertStatus(404);
     }
 
     public function test_can_delete_an_experience()
     {
+        $user = Passport::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
         $data = [
+            'user_id' => $user->id,
             'company_name' => 'ABC Pvt Ltd',
             'job_title' => 'Full Stack Developer',
             'from_date' => Carbon::today()->subYear(8)->subMonth(6)->toDateString(),

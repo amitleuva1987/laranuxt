@@ -1,89 +1,72 @@
 <template>
-  <section>
-    <h2 class="text-xl text-blue-700 mb-3 border-b-2 border-gray-200 pb-3">Language</h2>
-    <ul>
-      <li
-        v-for="lang in languages"
-        :key="lang.id"
-        class="bg-white px-3 py-2 flex justify-between mb-2"
-      >
-        <span>{{ lang.language_name }}</span>
-        <span><button type="button" class="text-blue-500" @click.once="edit(lang)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(lang.id)">Delete</button></span>
-      </li>
-    </ul>
-    <add-language @refresh_language="get_languages()" />
-    <edit-language v-if="enable_edit" :language="language" @refresh_language="refresh_edit()" />
-  </section>
+  <div>
+    <li
+      v-if="!enable_edit"
+      class="bg-white px-3 py-2 flex justify-between mb-2"
+    >
+      <span>{{ language.language_name }}</span>
+      <span><span
+              type="button"
+              class="text-blue-700 cursor-pointer"
+              @click.once="enable_edit = !enable_edit"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </span>
+        <span
+          type="button"
+          class="text-red-500 cursor-pointer"
+          @click.once="$emit('deleteLanguage',language.id)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </span>
+    </li>
+    <edit-language v-if="enable_edit" :language="language" @close_language="enable_edit = !enable_edit" />
+  </div>
 </template>
+
 <script lang="ts">
 import Vue from 'vue'
-import AddLanguage from './AddLanguage.vue'
 import EditLanguage from './EditLanguage.vue'
 import { Language } from '@/types/api'
 export default Vue.extend({
-  name: 'Language',
-  components: { AddLanguage, EditLanguage },
+  components: { EditLanguage },
+  props: {
+    language: {
+      required: true,
+      type: Object as () => Language,
+    },
+  },
   data () {
-    const languages:Language[] = []
     const enable_edit:boolean = false
-    const language = {} as Language
     return {
-      languages,
       enable_edit,
-      language,
     }
-  },
-  mounted () {
-    this.get_languages()
-  },
-  methods: {
-    async refresh_edit ():Promise<void> {
-      this.languages = (await this.$axios.get('languages')).data.data as Language[]
-      this.enable_edit = !this.enable_edit
-    },
-    edit (language:Language):void {
-      this.language = language
-      this.enable_edit = !this.enable_edit
-    },
-    async get_languages (): Promise<void> {
-      this.languages = (await this.$axios.get('languages')).data.data as Language[]
-    },
-
-    danger (id:number) {
-      this.$modal.show({
-        type: 'danger',
-        title: 'Are you sure?',
-        body: 'once removed, you will not be able to get it back.',
-        secondary: {
-          label: 'Cancel',
-          theme: 'while',
-          action: () => this.$toast.success('You cancelled deletion'),
-        },
-        primary: {
-          label: 'Confirm Delete',
-          theme: 'red',
-          action: () => this.delete_language(id),
-        },
-      })
-    },
-
-    async delete_language (id:number) {
-      const url = 'languages/' + id
-      await this.$axios.delete(url).then(() => {
-        this.get_languages()
-        this.$toast.show({
-          type: 'success',
-          title: 'Success',
-          message: 'Language Deleted Successfully',
-        })
-      }).catch(() => {
-        this.$toast.show({
-          type: 'danger',
-          title: 'Error',
-          message: 'Oops, something went wrong',
-        })
-      })
-    },
   },
 })
 </script>

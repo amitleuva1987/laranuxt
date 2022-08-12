@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Experience;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExperienceController extends Controller
 {
@@ -14,7 +15,7 @@ class ExperienceController extends Controller
      */
     public function index()
     {
-        $experiences = Experience::all();
+        $experiences = Experience::where('user_id', Auth::id())->get();
         return $this->render($experiences);
     }
 
@@ -45,6 +46,7 @@ class ExperienceController extends Controller
             ->verify();
 
         $experience = Experience::create([
+            'user_id' => Auth::id(),
             'company_name' => $request->company_name,
             'job_title' => $request->job_title,
             'from_date' => $request->from_date,

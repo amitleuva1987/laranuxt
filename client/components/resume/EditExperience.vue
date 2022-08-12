@@ -1,32 +1,32 @@
 <template>
   <section>
-    <form class="w-full border-b-2 border-yellow-900 pb-3 mb-3 mt-5" @submit.prevent="save_experience">
+    <form class="w-full border-b-2 border-gray-200 pb-3 mb-3 mt-5" @submit.prevent="save_experience">
       <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-company-name">
             Company Name
           </label>
-          <input
-            id="grid-company-name"
-            v-model="local_experience.company_name"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          <Textinput
+            id="name"
+            :model-value.sync="local_experience.company_name"
             type="text"
-            placeholder="ABC Pvt ltd"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-job-title">
             Job Title
           </label>
-          <input
-            id="grid-job-title"
-            v-model="local_experience.job_title"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          <Textinput
+            id="name"
+            :model-value.sync="local_experience.job_title"
             type="text"
-            placeholder="Full stack developer"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
       </div>
 
@@ -35,25 +35,27 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-github">
             From Date
           </label>
-          <input
-            id="grid-from-date"
-            v-model="local_experience.from_date"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          <Textinput
+            id="name"
+            :model-value.sync="local_experience.from_date"
             type="date"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-linkedin">
             To Date
           </label>
-          <input
-            id="grid-to-date"
-            v-model="local_experience.to_date"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          <Textinput
+            id="name"
+            :model-value.sync="local_experience.to_date"
             type="date"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
       </div>
 
@@ -62,12 +64,13 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-mobile-no">
             Responsiblities
           </label>
-          <textarea
-            id="grid-responsibility-no"
-            v-model="local_experience.responsibilities"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            placeholder="Responsibilities"
+          <textarea-input
+            id="description"
+            :model-value.sync="local_experience.responsibilities"
+            type="tel"
             required="required"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            label="Description"
           />
         </div>
       </div>
@@ -82,7 +85,7 @@
         <button
           class="ml-2 bg-white text-md py-2 px-3 rounded"
           type="button"
-          @click.once="show_add_experiemce_form = !show_add_experiemce_form"
+          @click="$emit('close_experience')"
         >
           CANCEL
         </button>
@@ -128,7 +131,7 @@ export default Vue.extend({
           title: 'Success',
           message: 'Experience Update Successfully',
         })
-        this.$emit('refresh_experience')
+        this.$emit('close_experience')
       }).catch(() => {
         this.$toast.show({
           type: 'danger',

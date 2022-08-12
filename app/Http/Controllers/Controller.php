@@ -48,7 +48,7 @@ class Controller extends BaseController
             ->verify();
 
         $faker = Factory::create();
-        $users = User::get(['name','email']);
+//        $users = User::get(['name','email']);
 
         for ($i = 0; $i !== (int) $request->get('count'); $i++) {
             $email = $faker->unique()->safeEmail;

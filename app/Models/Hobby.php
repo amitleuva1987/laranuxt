@@ -9,5 +9,5 @@ class Hobby extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['hobby_name'];
+    protected $fillable = ['user_id','hobby_name'];
 }

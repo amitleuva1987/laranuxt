@@ -4,17 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+// use acidjazz\metapi\MetApi;
 
 class SkillController extends Controller
 {
+   // use MetApi;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $skills = Skill::all();
+        $skills = Skill::where('user_id', Auth::id())->get();
         return $this->render($skills);
     }
 
@@ -40,6 +45,7 @@ class SkillController extends Controller
             ->option('name', 'required|string|max:50')
             ->verify();
         $skill = Skill::create([
+            'user_id' => Auth::id(),
             'name' => $request->name
         ]);
         return $this->render($skill);

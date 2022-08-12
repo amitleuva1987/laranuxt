@@ -14,15 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         User::factory(1)->create();
-         \App\Models\Skill::create([
-            'name' => 'Vue js'
-         ]);
-         \App\Models\Skill::create([
-            'name' => 'Nuxt js'
-         ]);
-         \App\Models\Skill::create([
-            'name' => 'Laravel'
-         ]);
+         User::factory(5)->hasskills(5)->haseducations(2)->hasexperiences(1)->haslanguages(1)->hashobbies(1)->create();
     }
 }

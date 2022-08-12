@@ -175,7 +175,7 @@ export default Vue.extend({
     async get_user ():Promise<void> {
       this.loading = true
       try {
-        await this.$axios.get('users/1').then((response) => {
+        await this.$axios.get('api/v1/user').then((response) => {
           this.user = response.data.data
         }).finally(() => {
           this.loading = false
@@ -195,14 +195,14 @@ export default Vue.extend({
         location: this.user.location,
         description: this.user.description,
       }
+
       try {
-        await this.$axios.put('users/1', data).then(() => {
+        await this.$axios.patch('api/v1/user', data).then(() => {
           this.$toast.show({
             type: 'success',
             title: 'Success',
             message: 'Profile Updated Successfully',
           })
-          this.get_user()
         })
       } catch (error) {
         this.$toast.show({

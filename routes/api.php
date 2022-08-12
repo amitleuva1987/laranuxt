@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\api\Auth\LogoutController;
+use App\Http\Controllers\api\Auth\RegisterController;
+use App\Http\Controllers\api\UserController as V1UserController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
@@ -25,21 +28,29 @@ Route::get('/', [Controller::class, 'routes'])
     ->withoutMiddleware('api');
 Route::get('/example', [Controller::class, 'example'])->name('example route');
 Route::get('/error', [Controller::class, 'error'])->name('error route');
-Route::resource('/users', UserController::class)->only([
-    'show', 'update'
-]);
-Route::resource('/skills', SkillController::class)->except([
+
+Route::middleware('auth:api')->group(function () {
+    Route::resource('/skills', SkillController::class)->except([
     'create', 'edit'
-]);
-Route::resource('/experiences', ExperienceController::class)->except([
+    ]);
+    Route::resource('/experiences', ExperienceController::class)->except([
     'create', 'edit'
-]);
-Route::resource('/educations', EducationController::class)->except([
+    ]);
+    Route::resource('/educations', EducationController::class)->except([
     'create', 'edit'
-]);
-Route::resource('/languages', LanguageController::class)->except([
+    ]);
+    Route::resource('/languages', LanguageController::class)->except([
     'create', 'edit'
-]);
-Route::resource('/hobbies', HobbyController::class)->except([
+    ]);
+    Route::resource('/hobbies', HobbyController::class)->except([
     'create', 'edit'
-]);
+    ]);
+});
+
+Route::prefix('api/v1')->group(function () {
+    Route::post('logout', [LogoutController::class, 'logout']);
+    Route::post('register', [RegisterController::class, 'register']);
+    Route::get('user', [V1UserController::class, 'show']);
+    Route::patch('user', [V1UserController::class, 'update']);
+    Route::delete('user', [V1UserController::class, 'destroy']);
+});

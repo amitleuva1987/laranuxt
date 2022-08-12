@@ -1,93 +1,75 @@
 <template>
-  <section>
-    <h2 class="text-xl text-blue-700 mb-3 border-b-2 border-gray-200 pb-3">Education</h2>
-    <ul>
-      <li
-        v-for="s_education in educations"
-        :key="s_education.id"
-        class="bg-white px-3 py-2 flex justify-between mb-2"
-      >
-        <span>{{ s_education.degree_name }} | {{ s_education.university_name }} ({{ s_education.from_date | formatDate }} - {{ s_education.to_date | formatDate }})</span>
-        <span><button type="button" class="text-blue-500" @click.once="edit(s_education)">Edit</button> | <button type="button" class="text-red-500" @click.once="danger(s_education.id)">Delete</button></span>
-      </li>
-    </ul>
-    <add-education @refresh_education="get_educations()" />
-    <edit-education v-if="enable_edit" :education="education" @refresh_education="refresh_edit()" />
-  </section>
+  <div>
+    <li
+      v-if="!enable_edit"
+      class="bg-white px-3 py-2 flex justify-between mb-2"
+    >
+      <span>{{ education.degree_name }} | {{ education.university_name }} ({{ education.from_date | formatDate }} - {{ education.to_date | formatDate }})</span>
+      <span><span
+              type="button"
+              class="text-blue-700 cursor-pointer"
+              @click.once="enable_edit = !enable_edit"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </span>
+        <span
+          type="button"
+          class="text-red-500 cursor-pointer"
+          @click.once="$emit('deleteEducation',education.id)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </span></span>
+    </li>
+    <edit-education v-if="enable_edit" :education="education" @close_education="enable_edit = !enable_edit" @refresh_education="refresh_edit()" />
+  </div>
 </template>
+
 <script lang="ts">
 import Vue from 'vue'
-import AddEducation from './AddEducation.vue'
 import EditEducation from './EditEducation.vue'
 import { Education } from '@/types/api'
 export default Vue.extend({
-  name: 'Education',
-  components: { AddEducation, EditEducation },
+  components: { EditEducation },
   filters: {
     formatDate: (dateStr: string) =>
       Intl.DateTimeFormat('us-EN').format(new Date(dateStr)),
   },
+  props: {
+    education: {
+      required: true,
+      type: Object as () => Education,
+    },
+  },
   data () {
-    const educations:Education[] = []
     const enable_edit:boolean = false
-    const education = {} as Education
     return {
-      educations,
       enable_edit,
-      education,
     }
-  },
-  mounted () {
-    this.get_educations()
-  },
-  methods: {
-    async refresh_edit ():Promise<void> {
-      this.educations = (await this.$axios.get('educations')).data.data as Education[]
-      this.enable_edit = !this.enable_edit
-    },
-    edit (education:Education):void {
-      this.education = education
-      this.enable_edit = !this.enable_edit
-    },
-    async get_educations (): Promise<void> {
-      this.educations = (await this.$axios.get('educations')).data.data as Education[]
-    },
-
-    danger (id:number) {
-      this.$modal.show({
-        type: 'danger',
-        title: 'Are you sure?',
-        body: 'once removed, you will not be able to get it back.',
-        secondary: {
-          label: 'Cancel',
-          theme: 'while',
-          action: () => this.$toast.success('You cancelled deletion'),
-        },
-        primary: {
-          label: 'Confirm Delete',
-          theme: 'red',
-          action: () => this.delete_education(id),
-        },
-      })
-    },
-
-    async delete_education (id:number) {
-      const url = 'educations/' + id
-      await this.$axios.delete(url).then(() => {
-        this.get_educations()
-        this.$toast.show({
-          type: 'success',
-          title: 'Success',
-          message: 'Education Deleted Successfully',
-        })
-      }).catch(() => {
-        this.$toast.show({
-          type: 'danger',
-          title: 'Error',
-          message: 'Oops, something went wrong',
-        })
-      })
-    },
   },
 })
 </script>

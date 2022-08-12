@@ -16,27 +16,29 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-company-name">
             Company Name
           </label>
-          <input
-            id="grid-company-name"
-            v-model="experience.company_name"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          <Textinput
+            id="name"
+            :model-value.sync="experience.company_name"
             type="text"
-            placeholder="ABC Pvt ltd"
+            label="Name"
             required="required"
-          >
+            placeholder="ABC Pvt ltd"
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-job-title">
             Job Title
           </label>
-          <input
-            id="grid-job-title"
-            v-model="experience.job_title"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          <Textinput
+            id="name"
+            :model-value.sync="experience.job_title"
             type="text"
-            placeholder="Full stack developer"
+            label="Name"
             required="required"
-          >
+            placeholder="Full stack developer"
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
       </div>
 
@@ -45,25 +47,27 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-github">
             From Date
           </label>
-          <input
-            id="grid-from-date"
-            v-model="experience.from_date"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          <Textinput
+            id="name"
+            :model-value.sync="experience.from_date"
             type="date"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-linkedin">
             To Date
           </label>
-          <input
-            id="grid-to-date"
-            v-model="experience.to_date"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          <Textinput
+            id="name"
+            :model-value.sync="experience.to_date"
             type="date"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
       </div>
 
@@ -72,12 +76,13 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-mobile-no">
             Responsiblities
           </label>
-          <textarea
-            id="grid-responsibility-no"
-            v-model="experience.responsibilities"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            placeholder="Responsibilities"
+          <textarea-input
+            id="description"
+            :model-value.sync="experience.responsibilities"
+            type="tel"
             required="required"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            label="Description"
           />
         </div>
       </div>

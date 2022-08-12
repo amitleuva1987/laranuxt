@@ -15,6 +15,7 @@ class CreateHobbiesTable extends Migration
     {
         Schema::create('hobbies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('id')->on('users');
             $table->string('hobby_name');
             $table->timestamps();
         });

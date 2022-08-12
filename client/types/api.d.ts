@@ -62,4 +62,18 @@ export interface Experience {
   responsibilities:Text
 }
 
+export interface LoginForm {
+  username:string
+  password:string
+}
+
+export interface CreateAccount {
+  name:string
+  email:string
+  mobile_no:string
+  job_title:string
+  location:string
+  password:string
+}
+
 export type Users = Array<User>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Education;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EducationController extends Controller
 {
@@ -14,7 +15,7 @@ class EducationController extends Controller
      */
     public function index()
     {
-        $educations = Education::all();
+        $educations = Education::where('user_id', Auth::id())->get();
         return $this->render($educations);
     }
 
@@ -44,6 +45,7 @@ class EducationController extends Controller
             ->verify();
 
         $education = Education::create([
+            'user_id' => Auth::id(),
             'degree_name' => $request->degree_name,
             'university_name' => $request->university_name,
             'from_date' => $request->from_date,

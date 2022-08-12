@@ -12,27 +12,29 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-degree-name">
             Degree Name
           </label>
-          <input
-            id="grid-company-name"
-            v-model="education.degree_name"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          <Textinput
+            id="name"
+            :model-value.sync="education.degree_name"
             type="text"
-            placeholder="ABC Pvt ltd"
+            label="Name"
             required="required"
-          >
+            placeholder="BE"
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-university-name">
             University Name
           </label>
-          <input
-            id="grid-university-name"
-            v-model="education.university_name"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          <Textinput
+            id="name"
+            :model-value.sync="education.university_name"
             type="text"
-            placeholder="Full stack developer"
+            label="Name"
             required="required"
-          >
+            placeholder="Gujarat University"
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
       </div>
 
@@ -41,25 +43,27 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-github">
             From Date
           </label>
-          <input
-            id="grid-from-date"
-            v-model="education.from_date"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          <Textinput
+            id="name"
+            :model-value.sync="education.from_date"
             type="date"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-linkedin">
             To Date
           </label>
-          <input
-            id="grid-to-date"
-            v-model="education.to_date"
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          <Textinput
+            id="name"
+            :model-value.sync="education.to_date"
             type="date"
+            label="Name"
             required="required"
-          >
+            class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          />
         </div>
       </div>
 

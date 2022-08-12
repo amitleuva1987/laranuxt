@@ -1,13 +1,15 @@
 <template>
   <form class="w-full" @submit.prevent="edit_skill">
-    <div class="flex items-center border-b border-teal-500 py-2">
-      <input
-        v-model="local_skill.name"
-        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+    <div class="flex items-center border-b border-teal-500 pb-2">
+      <Textinput
+        id="name"
+        :model-value.sync="local_skill.name"
         type="text"
-        placeholder="Skill"
+        label="Name"
         required="required"
-      >
+        class="appearance-none block w-full text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+      />
+
       <button
         class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:text-md border-4 text-white py-2 px-3 rounded"
         type="submit"
@@ -27,9 +29,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Textinput from '../Textinput.vue'
 import { Skill } from '@/types/api'
 export default Vue.extend({
   name: 'EditSkill',
+  components: { Textinput },
   props: {
     skill: {
       required: true,
@@ -47,7 +51,7 @@ export default Vue.extend({
     console.log(this.local_skill)
   },
   methods: {
-    async edit_skill ():Promise<void> {
+    async edit_skill (): Promise<void> {
       const data = {
         name: this.local_skill.name,
       }
