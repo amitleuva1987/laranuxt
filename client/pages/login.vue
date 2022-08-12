@@ -136,6 +136,7 @@ export default Vue.extend({
           this.$router.push('/profile')
         })
         .catch((error) => {
+          this.loading = false
           this.error = error.response.data.errors ?? error.response.data
         })
     },

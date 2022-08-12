@@ -4,6 +4,7 @@
 * run `yarn` or `npm install` and `composer install` to install all of your deps
 * copy `.env.example` to `.env` and configure it to your likings
 * generate key using `php artisan key:generate`
+* generate keys for laravel passport using `php artisan passport:keys`
 * run `php artisan migrate` to create db && `php artisan db:seed` to feed dummy the data
 * Feel free to delete excess media in  `/client/static/`, just images for the readme
 
