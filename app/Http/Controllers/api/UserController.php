@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -30,9 +31,18 @@ class UserController extends Controller
         //     ->option('location', 'required|string')
         //     ->verify();
 
-        $user = Auth::user();
+        $user = User::find(Auth::id()); //Auth::user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->mobile_no = $request->mobile_no;
+        $user->job_title = $request->job_title;
+        $user->github_profile = $request->github_profile;
+        $user->linkedin_profile = $request->linkedin_profile;
+        $user->location = $request->location;
+        $user->description = $request->description;
+        $user->save();
 
-        $user->update($request->only('name', 'email', 'mobile_no', 'job_title', 'github_profile', 'linkedin_profile', 'location'));
+//      $user->update($request->only('name', 'email', 'mobile_no', 'job_title', 'github_profile', 'linkedin_profile', 'location'));
 
         return new UserResource($user);
     }

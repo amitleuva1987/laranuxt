@@ -31,7 +31,10 @@ class UserFactory extends Factory
             'linkedin_profile' => 'https://linkedin.com/profile',
             'location' => 'Ahmedabad, India',
             'mobile_no' => '+91 9033049648',
-            'description' => $this->faker->text(),
+            'description' => 'Full stack developer with over 10 years of web development experience, both technically focused and
+            customer oriented. I believe in sustained improvement and finding better ways in doing things every
+            day. I am looking for a career that is both challenging and reward .
+            ',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];

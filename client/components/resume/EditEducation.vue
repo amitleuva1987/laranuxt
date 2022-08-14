@@ -61,10 +61,22 @@
 
       <div class="w-full flex justify-center">
         <button
-          class="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded"
+          class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-md border-4 text-white py-2 px-3 rounded"
           type="submit"
+          :disabled="update_state"
         >
-          SAVE
+          <svg v-if="update_state" class="mr-3 h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            />
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg>
+          {{ update_state ? 'saving...' : 'SAVE' }}
         </button>
         <button
           class="ml-2 bg-white text-md py-2 px-3 rounded"
@@ -91,8 +103,10 @@ export default Vue.extend({
   },
   data () {
     const local_education = {} as Education
+    const update_state:boolean = false
     return {
       local_education,
+      update_state,
     }
   },
   mounted () {
@@ -100,6 +114,7 @@ export default Vue.extend({
   },
   methods: {
     async save_education ():Promise<void> {
+      this.update_state = true
       const data = {
         degree_name: this.local_education.degree_name,
         university_name: this.local_education.university_name,
@@ -109,6 +124,7 @@ export default Vue.extend({
 
       const url = 'educations/' + this.local_education.id
       await this.$axios.put(url, data).then(() => {
+        this.update_state = false
         this.$toast.show({
           type: 'success',
           title: 'Success',
@@ -116,6 +132,7 @@ export default Vue.extend({
         })
         this.$emit('close_education')
       }).catch(() => {
+        this.update_state = false
         this.$toast.show({
           type: 'danger',
           title: 'Error',

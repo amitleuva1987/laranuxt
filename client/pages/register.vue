@@ -124,9 +124,20 @@
 
           <div class="mt-8">
             <button
-              class="bg-blue-500 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+              class="flex items-center justify-center bg-blue-500 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
             >
-              Create account
+              <svg v-if="loading" class="mr-3 h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            />
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg>
+            {{ loading ? 'Processing...' : 'Create Account' }}  
             </button>
           </div>
         </form>
@@ -155,26 +166,32 @@ export default Vue.extend({
   data () {
     const form = {} as CreateAccount
     const error:String | null = null
-
+    const loading:boolean = false
     return {
       form,
       error,
+      loading
     }
   },
   methods: {
     async register () {
       this.error = null
-
+      this.loading = true
       await this.$axios
         .$post('api/v1/register', {
           ...this.form,
           password_confirmation: this.form.password,
         })
         .then(() => {
+          this.loading = false
           this.$toast.success('Your account was created successfully!')
           this.$router.push('/login')
         })
-        .catch(e => (this.error = e.response.data.errors ?? e.response.data))
+        .catch(e => {
+          this.loading = false
+          this.error = e.response.data.errors ?? e.response.data
+        }
+        )
     },
   },
 })
