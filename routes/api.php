@@ -54,3 +54,7 @@ Route::prefix('api/v1')->group(function () {
     Route::patch('user', [V1UserController::class, 'update']);
     Route::delete('user', [V1UserController::class, 'destroy']);
 });
+
+Route::middleware('auth:api')->get('/test_jwt', function () {
+    return response()->json([ 'valid' => auth()->check() ]);
+});

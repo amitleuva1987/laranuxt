@@ -208,7 +208,7 @@ export default Vue.extend({
     this.get_hobbies()
   },
   methods: {
-    async get_user (): Promise<void>{
+    async get_user (): Promise<void> {
       this.user = (await this.$axios.get('api/v1/user')).data.data as User
     },
     async get_experiences (): Promise<void> {

@@ -24,8 +24,14 @@ class SkillTest extends TestCase
             User::factory()->create(),
             ['*']
         );
-
+        
+        // Passport::actingAsClient(
+        //     Client::factory()->create(),
+        //     ['*']
+        // );
         $response = $this->get('/skills');
+     //   $response = $this->get('/test_jwt');
+     //   dd($response);
         $response->assertStatus(200);
     }
 
