@@ -30,11 +30,11 @@
 import Vue from 'vue'
 import { User } from '@/types/api'
 import UserDetails from '@/components/resume/UserDetails.vue'
-import ListSkills from '@/components/resume/ListSkills.vue'
-import Experience from '@/components/resume/ListExperience.vue'
-import Education from '@/components/resume/ListEducation.vue'
-import Language from '@/components/resume/ListLanguage.vue'
-import Hobby from '@/components/resume/ListHobby.vue'
+import ListSkills from '@/components/resume/skill/ListSkills.vue'
+import Experience from '@/components/resume/experience/ListExperience.vue'
+import Education from '@/components/resume/education/ListEducation.vue'
+import Language from '@/components/resume/language/ListLanguage.vue'
+import Hobby from '@/components/resume/hobby/ListHobby.vue'
 export default Vue.extend({
   components: { UserDetails, ListSkills, Experience, Education, Language, Hobby },
   middleware: 'auth',

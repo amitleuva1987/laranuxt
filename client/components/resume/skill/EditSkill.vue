@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Textinput from '../Textinput.vue'
+import Textinput from '../../Textinput.vue'
 import { Skill } from '@/types/api'
 export default Vue.extend({
   name: 'EditSkill',
